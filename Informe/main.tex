@@ -1,0 +1,332 @@
+\documentclass[10pt]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{ragged2e}
+\usepackage{xurl}
+\usepackage{svg}
+\usepackage{pdfpages}
+\usepackage[lmargin=2cm, rmargin=2cm, top=2cm, bottom=2 cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{tabulary}
+\usepackage{etoolbox}
+% \usepackage{sectsty}
+\usepackage{float}
+\usepackage{multicol}
+\pagestyle{fancy}
+\fancyhead{}
+\usepackage{animate}
+\usepackage{enumerate}
+\usepackage{comment}
+\usepackage{zref-totpages}
+\usepackage{listings}
+%URL
+\usepackage{xcolor}
+
+\renewcommand{\lstlistingname}{Código}
+\renewcommand{\lstlistlistingname}{Lista de \lstlistingname s}
+
+\setlength\fboxsep{0pt}
+\newcommand\VR{\rule[-0.4\baselineskip]{0.4pt}{1.2\baselineskip} }
+\newcommand\VRn{\rule[-0.4\baselineskip]{0pt}{1.2\baselineskip} }
+
+% longtable
+\usepackage{longtable, array}
+\newlength{\x}
+\setlength{\x}{16cm}
+\definecolor{gris0}{HTML}{A5A5A5}
+\definecolor{gris1}{HTML}{EDEDED}
+\definecolor{gris2}{HTML}{DBDBDB}
+\newcounter{nIDR}
+\newcommand\nIDR{\addtocounter{nIDR}{1}\thenIDR}
+\newcommand\IDR{\centering \cellcolor{gris0} \textbf{\nIDR}}
+
+\usepackage[hidelinks]{hyperref} 
+\hypersetup{ colorlinks, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black }
+
+\fancyhead[R]{Página \thepage \hspace{0.02 cm} de \ztotpages}
+\fancyhead[L]{Arquitectura de software}
+
+\fancyfoot{}
+% \fancyfoot[L]{Docente: nombre docente}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\renewcommand{\headrulewidth}{0.9pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+
+\begin{document}
+\begin{titlepage}
+    \begin{center}
+        \vspace*{\baselineskip}
+        {
+        \includegraphics[scale=0.7]{imagenes/logoudp.png}\\[1cm]
+    
+        \bf\fontsize{22}{0}{\selectfont{UNIVERSIDAD DIEGO PORTALES}}\\[0.5cm]
+        }
+        
+        \vspace*{0.5\baselineskip}
+        {
+    
+        \bf\fontsize{14}{0}{\selectfont{ESCUELA DE INFORMÁTICA Y TELECOMUNICACIONES}}\\[0.35cm]
+        }
+        
+        \vspace*{\baselineskip}
+        \vspace*{3\baselineskip}
+        \hrule height 1.5pt
+        \vspace*{1\baselineskip}
+        {
+    
+        \bf\fontsize{20}{0}{\selectfont{Arquitectura de Software \\ Informe I}}
+        }
+        \vspace*{1\baselineskip}
+        \hrule height 1.5pt
+        
+        \vspace*{4.5\baselineskip}
+        
+        {
+        \begin{table}[H]
+            \centering
+            \resizebox{0.5\textwidth}{!}{%
+            \begin{tabular}{rl}
+        
+                Profesor:   & Juan Ricardo Giadach \\
+                \\
+                Alumnos:    & Pablo Ahumada \\
+                            & Sebastian Chavez \\
+                            & Carlos Jara \\
+                            & Anselmo Pacheco \\
+            \end{tabular}}
+        \end{table}
+        } 
+         
+        \vfill
+        \Large Santiago, Chile \hfill \today
+    
+    
+    \end{center}
+\end{titlepage}
+\newpage
+\setcounter{page}{2} 
+\renewcommand\contentsname{Índice de contenidos}
+\tableofcontents
+
+\newpage
+\section{Introducción}
+Este informe tiene como objetivo explicar el proyecto de desarrollo de un Sistema de Gestión Hospitalaria. El software será una herramienta integral que mejorará tanto la experiencia del personal del hospital como de los pacientes. En la actualidad, muchos hospitales enfrentan problemas relacionados con la coordinación de citas y la falta de acceso rápido y seguro a los historiales médicos. Nuestro sistema busca resolver estos problemas mediante la digitalización de los procesos hospitalarios, con un enfoque en la seguridad, la eficiencia operativa y la escalabilidad. 
+
+
+\section{Descripción general}
+% 2. describir el sistema, la organización y el área en la que se va a trabajar
+El sistema a desarrollar en este proyecto se trata de un sistema de hospitales, donde se tendrán múltiples funcionalidades así como usuarios. 
+Si bien las tareas que este software tiene que cumplir son detalladas en mayor profundidad en la sección de requisitos funcionales, de forma resumida se espera que el software permita a doctores manejar sus propias citas, prescribir medicamentos, revisar información sobre pacientes, etc. Para los usuarios se espera que estos puedan consultar los costos de sus atenciones previas, consultar las prescripciones de medicamento, poder agendar sus citas, etc. El personal del hospital podrá editar el inventario de farmacéuticos del hospital, registrar usuarios, etc.
+
+\section{Objetivo}
+% 3. establecer los objetivos que pretende obtener con el sistema a desarrollar 
+Con el software se pretende el poder realizar la base de un sistema interno de un hospital, el cual logra múltiples
+funciones facilitando tanto la labor de quienes trabajan en el lugar así como también se busca mejorar y facilitar la
+experiencia de quienes necesitan atenderse en el hospital, entre los principales objetivos se prentende:
+\begin{itemize}
+\item Optimizar la coordinación entre los diferentes departamentos del hospital.
+\item Reducir los tiempos de espera de los pacientes mediante la gestión eficiente de citas.
+\item Proveer acceso rápido y seguro a la información médica tanto para el personal hospitalario como para los pacientes.
+\item Garantizar la seguridad de los datos médicos mediante mecanismos de cifrado y control de acceso.
+\item Escalabilidad para que el sistema pueda adaptarse a hospitales de diferentes tamaños y especialidades.
+\item Cumplir con normativas de protección de datos como la HIPAA y el RGPD.
+\end{itemize}
+
+Entre otros objetivos secundarios se pueden incluir la reducción de costos operativos, la mejora en la precisión del manejo de inventarios, y la capacidad de generar reportes estadísticos sobre el rendimiento del hospital.
+
+
+
+
+
+
+Con el software se pretende el poder realizar la base de un sistema interno de un hospital, el cual logra múltiples funciones facilitando tanto la labor de quienes trabajan en el lugar así como también se busca mejorar y facilitar la experiencia de quienes necesitan atenderse en el hospital.
+
+
+\section{Usuarios}
+% y describir al usuario (o usuarios) del sistema
+\subsection{Administrador del sistema}
+Es el usuario encargado de la supervisión y mantenimiento del sistema.
+
+Estos tendrán acceso a las siguientes funciones:
+
+\begin{itemize}
+    \item Usuarios (edición)
+    \item Historial médico (edición)
+    \item Citas (edición)
+    \item Prescripciones (edición)
+\end{itemize}
+
+
+\subsection{Doctor}
+Es el usuario responsable de proporcionar atención médica a los pacientes.
+
+Estos tendrán acceso a las siguientes funciones:
+
+\begin{itemize}
+    \item Inicio de sesión
+    \item Citas (edición)
+    \item Historial médico (ingreso y consulta)
+    \item Resultado de exámenes (ingreso y consulta)
+    \item Prescripciones (ingreso)
+    \item Generar boletas (ingreso)
+    \item Inventario farmacéutico (consulta)
+    \item Generar ordenes de venta (ingreso)
+\end{itemize}
+
+\subsection{Paciente}
+Es el usuario que recibe la atención médica en el hospital. 
+Estos tendrán acceso a las siguientes funciones:
+
+\begin{itemize}
+    \item Registro e inicio de sesión
+    \item Citas (ingreso y consulta)
+    \item Información de contacto de doctores (consulta)
+    \item Historial médico (consulta)
+    \item Resultado de exámenes (consulta)
+    \item Prescripciones (consulta)
+    \item Boletas (consultas)
+
+\end{itemize}
+
+\subsection{Personal }
+Es el usuario encargado de recibir a los pacientes y realizar diversas tareas que se escapan de las obligaciones de los doctores.
+Estos tendrán acceso a las siguientes funciones:
+\begin{itemize}
+    \item Registrar pacientes(ingreso)
+    \item Generar boletas(ingreso)
+    \item Inventario farmacéutico(Edición)
+\end{itemize}
+
+
+
+\section{Requerimientos funcionales}
+% 4. especificar los requerimientos funcionales que satisfará el sistema
+\begin{center}
+\rowcolors{1}{gris1}{gris2}
+\renewcommand*{\arraystretch}{1.3}
+\begin{longtable}{| m{0.07\x} m{0.15\x} m{0.48\x} m{0.12\x} m{0.14\x} |}
+    \hline
+        \rowcolor[HTML]{9B9B9B}
+        \centering \color[HTML]{FFFFFF}\textbf{ID}&
+        \centering \color[HTML]{FFFFFF}\textbf{Nombre}&
+        \centering \color[HTML]{FFFFFF}\textbf{Descripción}&
+        \centering \color[HTML]{FFFFFF}\textbf{Prioridad}&
+        \centering \color[HTML]{FFFFFF}\textbf{Estado}
+    \endhead
+
+        \centering RF-\IDR & 
+        \centering Recordatorios automáticos para clientes&
+        El sistema debe permitir implementar un sistema de recordatorios automáticos para que los clientes se mantengan informados sobre las fechas de pago de manera sencilla.&
+        \centering Media&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Gestión de citas&
+        El sistema debe permitir al paciente solicitar, cancelar y reprogramar citas. Los doctores deben poder gestionar sus citas.&
+        \centering Alta&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Visualización de historial médico&
+        El sistema debe permitir que, tanto el paciente como el doctor, puedan acceder al historial médico del paciente en cuestión.&
+        \centering Alta&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Visualización de resultados de exámenes&
+        El sistema debe permitir que, tanto el paciente como el doctor, puedan acceder al historial médico del paciente en cuestión.&
+        \centering Alta&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Generador de reporte médico&
+        El sistema debe permitir al doctor ingresar reporte médico al historial del paciente que esta atendiendo.&
+        \centering Alta&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Prescripción de medicamentos&
+        El sistema debe permitir al doctor ingresar prescripciones del paciente que esta atendiendo.&
+        \centering Alta&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Visualización de prescripciones&
+        El sistema debe permitir que, tanto el paciente como el doctor, puedan acceder a las prescripciones del paciente en cuestión &
+        \centering Alta&
+        En desarrollo\\
+        
+        \centering RF-\IDR & 
+        \centering Registrar paciente&
+        El sistema debe permitir que el personal, en caso de que el paciente se atienda por primera vez en el hospital, pueda registrarlo.&
+        \centering Alta&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Inventario&
+        El sistema debe permitir que el doctor, en caso de prescribir una medicación, pueda consultar el inventario farmacéutico interno y en caso de tener stock pueda comunicar al paciente que su medicación puede comprarla dentro del hospital si lo desea. Si el usuario lo desea, generan una orden de venta. El personal debe ser capaz de poder editar la información, cantidad y precio.&
+        \centering Alta&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Ayuda con medicamentos&
+        El sistema debe permitir a los pacientes el poder consultar información sobre un medicamento colocando el código de dicho medicamento para encontrarlo. Dentro de este sistema el usuario tendrá recomendaciones, así como precauciones al tomar el medicamento consultado.&
+        \centering Media&
+        En desarrollo\\
+
+        \centering RF-\IDR & 
+        \centering Venta de medicamentos&
+        El sistema debe permitir que el personal pueda vender un medicamento, siempre y cuando la orden se haya generado previamente por parte del doctor que atendió al paciente&
+        \centering Alta&
+        En desarrollo\\
+
+         \centering RF-\IDR & 
+        \centering Facturación&
+        El sistema debe permitir que el doctor, al atender un cliente, pueda generar una boleta. El usuario, por su parte, debe poder ser capaz de tanto ver la última boleta así como las boletas de sus atenciones previas y compras previas. El personal, igualmente al vender un medicamento, también debe ser capaz de poder generar una boleta.&
+        \centering Alta&
+        En desarrollo\\
+        
+             
+%        \centering RF-\IDR & 
+%        \centering nombre&
+%        descripcion&
+%        \centering prioridad&
+%        
+
+    \hline
+\end{longtable}
+\end{center}
+
+
+\end{document}
